@@ -1,3 +1,12 @@
 #!/bin/bash
 
-tk show environments/${ARGOCD_ENV_TK_ENV} --dangerous-allow-redirect ${ARGOCD_ENV_EXTRA_ARGS}
+tk show environments/${ARGOCD_ENV_TK_ENV} --dangerous-allow-redirect \
+    ${ARGOCD_ENV_EXTRA_ARGS} \
+    -A appName=${ARGOCD_APP_NAME} \
+    -A namespace=${ARGOCD_APP_NAMESPACE} \
+    -A appRevision=${ARGOCD_APP_REVISION} \
+    -A appSourcePath=${ARGOCD_APP_SOURCE_PATH} \
+    -A appSourceUrl=${ARGOCD_APP_SOURCE_REPO_URL} \
+    -A appSourceTargetRevision=${ARGOCD_APP_SOURCE_TARGET_REVISION} \
+    -A kubeVersion=${KUBE_VERSION} \
+    -A kubeApiVersions=${KUBE_API_VERSIONS}
