@@ -64,10 +64,6 @@ spec:
 * TK_ENV: `tanka` environment to render
 * EXTRA_ARGS: any extra arguments you'd like to put on the commandline of `tk`. Good candidates are top-level functions and external variables.
 
-## Build environment top-level arguments
-
-[ArgoCD's build environment variables](https://argo-cd.readthedocs.io/en/stable/user-guide/build-environment/) are provided as top-level function by stripping `ARGOCD_` prefix and camelcasing the names, e.g. `appName` for `ARGOCD_APP_NAME`, `appSourceTargetRevision` for `ARGOCD_APP_SOURCE_TARGET_REVISION`, `kubeVersion` for `KUBE_VERSION` etc.
-
 ## Tips and tricks
 
 You can re-use your `tanka` `$.config` object as top-level arguments in the plugin by setting `EXTRA_ARGS` environment variable to
