@@ -1,0 +1,3 @@
+#!/bin/bash
+
+tk show environments/${ARGOCD_ENV_TK_ENV} --dangerous-allow-redirect ${ARGOCD_ENV_EXTRA_ARGS}

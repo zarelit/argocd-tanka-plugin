@@ -1,0 +1,13 @@
+#!/bin/bash
+
+find . -iname 'jsonnetfile.json' | while read -r jsonnet; do
+    pushd "$(dirname $jsonnet)" >/dev/null
+    jb install
+    popd >/dev/null
+done
+
+find . -iname 'chartfile.yaml' | while read -r chartfile; do
+    pushd "$(dirname $chartfile)" >/dev/null
+    tk tool charts vendor
+    popd >/dev/null
+done
