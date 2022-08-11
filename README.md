@@ -18,8 +18,8 @@ This plugin will vendor charts in every directory in the repository where a `cha
 
 Step 1: add an extra container to ArgoCD Helm release:
 
-``` json
-repoServer {
+``` js
+{
   extraContainers: [
     {
       name: 'tanka-cmp',
