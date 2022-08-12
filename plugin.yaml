@@ -7,16 +7,16 @@ spec:
     version: v1.0
     generate:
         command:
-            - sh
+            - bash
             - "-c"
-            - /generate
+            - "/generate 2>&1 | tee /tmp/generate.log.$(date +%s)"
 
     init:
         command:
-            - sh
+            - bash
             - "-c"
-            - /init
+            - "/init 2>&1 | tee /tmp/init.log.$(date +%s)"
 
     discover:
         find:
-            command: ["sh", "-c", "/discover"]
+            command: ["bash", "-c", "/discover 2>&1 | tee /tmp/discover.log.$(date +%s)"]
