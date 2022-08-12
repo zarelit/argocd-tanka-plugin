@@ -8,6 +8,7 @@ done
 
 find . -iname 'chartfile.yaml' | while read -r chartfile; do
     pushd "$(dirname $chartfile)" >/dev/null
-    tk tool charts vendor
+    # We need a home directory set for helm to be able to write its caches somewhere.
+    HOME=/tmp/helm/ tk tool charts vendor
     popd >/dev/null
 done
