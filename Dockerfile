@@ -2,8 +2,8 @@
 FROM ubuntu:22.04
 
 ARG JB_VERSION=v0.5.1
-ARG TK_VERSION=v0.22.1
-ARG HELM_VERSION=v3.9.3
+ARG TK_VERSION=v0.23.1
+ARG HELM_VERSION=v3.10.1
 
 RUN apt-get update && apt-get install ca-certificates -y --no-install-recommends && rm -rf /var/lib/apt/lists/*
 ADD --chmod=755 https://github.com/jsonnet-bundler/jsonnet-bundler/releases/download/${JB_VERSION}/jb-linux-amd64 /usr/local/bin/jb
