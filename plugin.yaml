@@ -9,14 +9,14 @@ spec:
         command:
             - bash
             - "-c"
-            - "/generate 2>&1 | tee /tmp/generate.log.$(date +%s)"
+            - "/script-wrapper /generate"
 
     init:
         command:
             - bash
             - "-c"
-            - "/init 2>&1 | tee /tmp/init.log.$(date +%s)"
+            - "/script-wrapper /init"
 
     discover:
         find:
-            command: ["bash", "-c", "/discover 2>&1 | tee /tmp/discover.log.$(date +%s)"]
+            command: ["bash", "-c", "/script-wrapper /discover"]
