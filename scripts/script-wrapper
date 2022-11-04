@@ -10,8 +10,6 @@ SCRIPT=$1
 
 SCRIPT_NAME=$(basename "$SCRIPT")
 
-mkdir -p $LOG_DIR
+mkdir -p "$LOG_DIR"
 
-#(cmd | tee stdout.log) 3>&1 1>&2 2>&3 | tee stderr.log
-
-($SCRIPT | tee "$LOG_DIR/$SCRIPT_NAME.stdout.log") 3>&1 1>&2 2>&3 | tee "$LOG_DIR/$SCRIPT_NAME.stderr.log"
+( ($SCRIPT | tee "$LOG_DIR/$SCRIPT_NAME.stdout.log") 3>&1 1>&2 2>&3 | tee "$LOG_DIR/$SCRIPT_NAME.stderr.log") 3>&1 1>&2 2>&3
