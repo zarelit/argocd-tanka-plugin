@@ -63,6 +63,10 @@ spec:
 
 - `TK_ENV`: `tanka` environment to render
 - `EXTRA_ARGS`: any extra arguments you'd like to put on the commandline of `tk`. Good candidates are top-level functions and external variables.
+- `CREDENTIALS_DIRECTORY`: if you use private Jsonnet modules, there is a good chance they are located in your
+  non-public Git repository. You can mount your credentials in [`git-credential`
+  format](https://git-scm.com/docs/git-credential#IOFMT) with one credential per file in this directory (`/credentials`
+  by default) and they'll get imported automatically into Git's credentials store and can be used transparently.
 
 ## Tips and tricks
 

@@ -1,13 +1,26 @@
 #!/bin/bash
 
+set -ue
+
+CREDENTIALS_DIRECTORY=${CREDENTIALS_DIRECTORY:-/credentials}
+
+# If we have a credentials directory, we assume that it contains files with git credentials for different sites and
+# import them into the git credential cache.
+if [ -d "$CREDENTIALS_DIRECTORY" ]; then
+    git config --global credential.helper cache
+    for cred in "$CREDENTIALS_DIRECTORY"/*; do
+        git credential-cache store < "$cred"
+    done
+fi 
+
 find . -iname 'jsonnetfile.json' | while read -r jsonnet; do
-    pushd "$(dirname $jsonnet)" >/dev/null
+    pushd "$(dirname "$jsonnet")" >/dev/null
     jb install
     popd >/dev/null
 done
 
 find . -iname 'chartfile.yaml' | while read -r chartfile; do
-    pushd "$(dirname $chartfile)" >/dev/null
+    pushd "$(dirname "$chartfile")" >/dev/null
     # We need a home directory set for helm to be able to write its caches somewhere.
     HOME=/tmp/helm/ tk tool charts vendor
     popd >/dev/null
