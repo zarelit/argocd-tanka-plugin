@@ -7,7 +7,7 @@ CREDENTIALS_DIRECTORY=${CREDENTIALS_DIRECTORY:-/credentials}
 # If we have a credentials directory, we assume that it contains files with git credentials for different sites and
 # import them into the git credential cache.
 if [ -d "$CREDENTIALS_DIRECTORY" ]; then
-    git config --global credential.helper cache
+    git config credential.helper cache
     for cred in "$CREDENTIALS_DIRECTORY"/*; do
         git credential-cache store < "$cred"
     done
