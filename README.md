@@ -18,29 +18,29 @@ This plugin will vendor charts in every directory in the repository where a `cha
 
 Step 1: add an extra container to ArgoCD Helm release:
 
-``` js
+```jsonnet
 {
-  extraContainers: [
+  "extraContainers": [
     {
-      name: 'tanka-cmp',
-      image: 'kurzdigital/argocd-tanka-plugin',
-      securityContext: {
-        runAsUser: 999,
+      "name": "tanka-cmp",
+      "image": "kurzdigital/argocd-tanka-plugin",
+      "securityContext": {
+        "runAsUser": 999
       },
-      volumeMounts: [
+      "volumeMounts": [
         {
-          mountPath: '/var/run/argocd',
-          name: 'var-files',
+          "mountPath": "/var/run/argocd",
+          "name": "var-files"
         },
         {
-          mountPath: '/home/argocd/cmp-server/plugins',
-          name: 'plugins',
+          "mountPath": "/home/argocd/cmp-server/plugins",
+          "name": "plugins"
         },
         {
-          mountPath: '/tmp',
-          name: 'cmp-tmp',
-        },
-      ],
+          "mountPath": "/tmp",
+          "name": "cmp-tmp"
+        }
+      ]
     }
   ]
 }
@@ -48,26 +48,26 @@ Step 1: add an extra container to ArgoCD Helm release:
 
 Step 2: add plugin configuration to your ArgoCD application:
 
-``` yaml
+```yaml
 spec:
   source:
     plugin:
       env:
-      - name: TK_ENV
-        value: default
-      - name: EXTRA_ARGS
-        value: --extra-options-you-need
+        - name: TK_ENV
+          value: default
+        - name: EXTRA_ARGS
+          value: --extra-options-you-need
 ```
 
 ### Environment variables
 
-* TK_ENV: `tanka` environment to render
-* EXTRA_ARGS: any extra arguments you'd like to put on the commandline of `tk`. Good candidates are top-level functions and external variables.
+- `TK_ENV`: `tanka` environment to render
+- `EXTRA_ARGS`: any extra arguments you'd like to put on the commandline of `tk`. Good candidates are top-level functions and external variables.
 
 ## Tips and tricks
 
 You can re-use your `tanka` `$.config` object as top-level arguments in the plugin by setting `EXTRA_ARGS` environment variable to
 
-``` jsonnet
+```jsonnet
 std.join(" ", ["-A %s=%s" % [x, $.config[x]] for x in std.objectFields($.config)])
 ```
