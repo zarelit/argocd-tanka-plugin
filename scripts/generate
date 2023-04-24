@@ -1,3 +1,10 @@
 #!/bin/bash
 
-tk show environments/${ARGOCD_ENV_TK_ENV} --dangerous-allow-redirect ${ARGOCD_ENV_EXTRA_ARGS}
+set -ue
+
+# Resolve the environment directory, allowing for relative environment paths like ../
+# 
+# realpath's `-m` is required, since the path might not exist.
+ENV_DIR=$(realpath -m "environments/$ARGOCD_ENV_TK_ENV")
+
+tk show "$ENV_DIR" --dangerous-allow-redirect ${ARGOCD_ENV_EXTRA_ARGS}
