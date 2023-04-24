@@ -7,7 +7,11 @@ CREDENTIALS_DIRECTORY=${CREDENTIALS_DIRECTORY:-/credentials}
 # If we have a credentials directory, we assume that it contains files with git credentials for different sites and
 # import them into the git credential cache.
 if [ -d "$CREDENTIALS_DIRECTORY" ]; then
-    git config credential.helper cache
+    # We need to use global git configuration -- even though our working directory is a git repository, it's not the git
+    # repository of the library being installed. However, there is quite a big chance that the HOME environment variable
+    # is not set or being "/", leading to errors from git, being unable to write to the root directory.
+    export HOME=$(mktemp -d)
+    git config --global credential.helper cache
     for cred in "$CREDENTIALS_DIRECTORY"/*; do
         git credential-cache store < "$cred"
     done
